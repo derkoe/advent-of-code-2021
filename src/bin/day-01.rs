@@ -1,8 +1,9 @@
 use std::fs;
 
 fn main() {
-    let contents = fs::read_to_string("input-01.txt").expect("Could not read input-01.txt");
-    let depths: Vec<u16> = contents.split("\n")
+    let depths = fs::read_to_string("input-01.txt")
+        .unwrap()
+        .lines()
         .map(|x| u16::from_str_radix(x, 10).unwrap_or(0))
         .collect();
 
@@ -28,10 +29,10 @@ fn part1(depths: &Vec<u16>) -> u16 {
 fn part2(depths: &Vec<u16>) -> u16 {
     let mut increase_count = 0;
     let mut last_window = u16::max_value();
-    
+
     let mut i = 0;
     while i + 2 < depths.len() {
-        let cur_window = depths[i] + depths[i+1] + depths[i+2];
+        let cur_window = depths[i] + depths[i + 1] + depths[i + 2];
         if cur_window > last_window {
             increase_count += 1;
         }
