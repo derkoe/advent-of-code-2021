@@ -1,54 +1,11 @@
-use std::fs;
+use aoc_runner_derive::*;
 use std::str::Lines;
 
 type Board = Vec<Vec<(u32, bool)>>;
 
-fn main() {
-    println!(
-        "Part 1: score = {}",
-        part1(parse_file(fs::read_to_string("input-04.txt").unwrap()))
-    );
-
-    println!(
-        "Part 2: score = {}",
-        part2(parse_file(fs::read_to_string("input-04.txt").unwrap()))
-    );
-}
-
-fn part1(input: (Vec<u32>, Vec<Board>)) -> u32 {
-    let (numbers, mut boards) = input.clone();
-    for num in numbers {
-        for board in boards.iter_mut() {
-            if check_board(num, board) {
-                return calc_board(board.clone()) * num;
-            }
-        }
-    }
-    0
-}
-
-fn part2(input: (Vec<u32>, Vec<Board>)) -> u32 {
-    let (numbers, mut boards) = input.clone();
-    let mut last_board = Option::None;
-    let mut last_num = 0;
-    for num in numbers {
-        let mut winner_boards = vec![];
-        for (idx, board) in boards.iter_mut().enumerate() {
-            if check_board(num, board) {
-                winner_boards.push(idx);
-                last_board = Option::from(board.clone());
-                last_num = num.clone();
-            }
-        }
-        winner_boards.iter().rev().for_each(|&idx| {
-            boards.remove(idx);
-        });
-    }
-    calc_board(last_board.unwrap()) * last_num
-}
-
-fn parse_file(contents: String) -> (Vec<u32>, Vec<Board>) {
-    let mut lines = contents.lines();
+#[aoc_generator(day4)]
+fn parse_file(input: &str) -> (Vec<u32>, Vec<Board>) {
+    let mut lines = input.lines();
     let numbers: Vec<u32> = lines
         .next()
         .unwrap()
@@ -76,6 +33,40 @@ fn parse_boards(lines: &mut Lines) -> Vec<Board> {
     }
     boards.push(board);
     boards
+}
+
+#[aoc(day4, part1)]
+fn part1(input: &(Vec<u32>, Vec<Board>)) -> u32 {
+    let (numbers, mut boards) = input.clone();
+    for num in numbers {
+        for board in boards.iter_mut() {
+            if check_board(num, board) {
+                return calc_board(board.clone()) * num;
+            }
+        }
+    }
+    0
+}
+
+#[aoc(day4, part2)]
+fn part2(input: &(Vec<u32>, Vec<Board>)) -> u32 {
+    let (numbers, mut boards) = input.clone();
+    let mut last_board = Option::None;
+    let mut last_num = 0;
+    for num in numbers {
+        let mut winner_boards = vec![];
+        for (idx, board) in boards.iter_mut().enumerate() {
+            if check_board(num, board) {
+                winner_boards.push(idx);
+                last_board = Option::from(board.clone());
+                last_num = num.clone();
+            }
+        }
+        winner_boards.iter().rev().for_each(|&idx| {
+            boards.remove(idx);
+        });
+    }
+    calc_board(last_board.unwrap()) * last_num
 }
 
 fn check_board(num: u32, board: &mut Board) -> bool {

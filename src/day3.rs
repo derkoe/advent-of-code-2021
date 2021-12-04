@@ -1,21 +1,18 @@
-use std::fs;
-
-fn main() {
-    let contents = fs::read_to_string("input-03.txt").unwrap();
-    let lines = contents
+#[aoc_generator(day1)]
+fn main3(input: &str) -> Vec<Vec<char>> {
+    input
         .lines()
         .filter(|line| !line.is_empty())
         .map(|line| line.chars().collect::<Vec<char>>())
-        .collect::<Vec<Vec<char>>>();
-
-    println!("{}", part_one(&lines));
-    println!("{}", part_two(&lines));
+        .collect::<Vec<Vec<char>>>()
 }
 
+#[aoc(day3, part1)]
 fn part_one(lines: &Vec<Vec<char>>) -> usize {
     get_rate(lines, true) * get_rate(lines, false)
 }
 
+#[aoc(day3, part2)]
 fn part_two(lines: &Vec<Vec<char>>) -> usize {
     let m = most_common(lines, 1, true);
     lines.iter().filter(|line| line[1] != m).count()

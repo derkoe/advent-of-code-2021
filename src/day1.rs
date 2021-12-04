@@ -1,17 +1,14 @@
-use std::fs;
+use aoc_runner_derive::*;
 
-fn main() {
-    let depths = fs::read_to_string("input-01.txt")
-        .unwrap()
+#[aoc_generator(day1)]
+fn parse_input(input: &str) -> Vec<u16> {
+    input
         .lines()
         .map(|x| u16::from_str_radix(x, 10).unwrap_or(0))
-        .collect();
-
-    println!("Part 1: {} times increased", part1(&depths));
-
-    println!("Part 2: {} times increased", part2(&depths));
+        .collect()
 }
 
+#[aoc(day1, part1)]
 fn part1(depths: &Vec<u16>) -> u16 {
     let mut last_depth = u16::max_value();
     let mut increase_count = 0;
@@ -26,6 +23,7 @@ fn part1(depths: &Vec<u16>) -> u16 {
     increase_count
 }
 
+#[aoc(day1, part2)]
 fn part2(depths: &Vec<u16>) -> u16 {
     let mut increase_count = 0;
     let mut last_window = u16::max_value();
