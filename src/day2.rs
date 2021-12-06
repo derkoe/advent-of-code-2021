@@ -1,7 +1,7 @@
 use aoc_runner_derive::*;
 
-struct Command<'a> {
-    command_type: &'a str,
+struct Command {
+    command_type: String,
     num: i32,
 }
 
@@ -13,7 +13,7 @@ fn parse_input(input: &str) -> Vec<Command> {
         .map(|line| {
             let split: Vec<&str> = line.split(" ").collect();
             Command {
-                command_type: split[0],
+                command_type: split[0].to_string(),
                 num: split[1].parse::<i32>().unwrap(),
             }
         })
@@ -27,7 +27,7 @@ fn part_one(commands: &Vec<Command>) -> i32 {
 
     commands
         .iter()
-        .for_each(|command| match command.command_type {
+        .for_each(|command| match command.command_type.as_str() {
             "forward" => {
                 horizontal_position += command.num;
             }
@@ -52,7 +52,7 @@ fn part_two(commands: &Vec<Command>) -> i32 {
     let mut aim = 0;
 
     for command in commands {
-        match command.command_type {
+        match command.command_type.as_str() {
             "forward" => {
                 horizontal_position += command.num;
                 depth += aim * command.num;

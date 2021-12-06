@@ -1,4 +1,6 @@
-#[aoc_generator(day1)]
+use aoc_runner_derive::*;
+
+#[aoc_generator(day3)]
 fn main3(input: &str) -> Vec<Vec<char>> {
     input
         .lines()
