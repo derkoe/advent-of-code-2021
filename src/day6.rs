@@ -24,3 +24,16 @@ fn part1(depths: &Vec<u8>) -> usize {
     }
     curr_depths.len()
 }
+
+#[aoc(day6, part2)]
+fn part2(timers: &Vec<u8>) -> usize {
+    let mut counts = [0; 9];
+    for timer in timers {
+        counts[*timer as usize] += 1;
+    }
+    for _ in 0..256 {
+        counts.rotate_left(1);
+        counts[6] += counts[8];
+    }
+    counts.iter().sum::<usize>()
+}
