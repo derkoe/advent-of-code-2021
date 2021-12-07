@@ -10,14 +10,17 @@ fn part1(depths: &Vec<u8>) -> usize {
     let mut curr_depths = depths.clone();
     for _ in 0..80 {
         let mut add = 0;
-        curr_depths = curr_depths.iter().map(|timer| {
-            if *timer == 0 {
-                add += 1;
-                6
-            } else {
-                timer - 1
-            }
-        }).collect();
+        curr_depths = curr_depths
+            .iter()
+            .map(|timer| {
+                if *timer == 0 {
+                    add += 1;
+                    6
+                } else {
+                    timer - 1
+                }
+            })
+            .collect();
         for _ in 0..add {
             curr_depths.push(8);
         }
