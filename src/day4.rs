@@ -132,11 +132,13 @@ mod test {
 
     #[test]
     fn test_part1() {
-        assert_eq!(4512, part1(parse_file(String::from(EXAMPLE))));
+        let input = parse_file(EXAMPLE);
+        assert_eq!(4512, part1(&input));
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(1924, part2(parse_file(String::from(EXAMPLE))));
+        let input = parse_file(EXAMPLE);
+        assert_eq!(1924, part2(&input));
     }
 }
