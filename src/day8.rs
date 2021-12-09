@@ -76,10 +76,10 @@ fn part2(input: &Vec<InputOutput>) -> usize {
                     }
                     6 => {
                         // 0, 6 or 9
-                        if contains_all(digit, &digits_of_4_without_1) { // 6 or 9
-                            if contains_all(digit, &digits_of_1) { // 6
+                        if contains_all(digit, &digits_of_4_without_1) {
+                            if contains_all(digit, &digits_of_1) {
                                 "9"
-                            } else { // 9
+                            } else {
                                 "6"
                             }
                         } else {
