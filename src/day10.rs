@@ -21,7 +21,6 @@ fn part2(input: &Vec<Vec<char>>) -> usize {
         .filter(|n| n > &0)
         .collect();
     x.sort();
-    println!("{:?}", x);
     x[x.len() / 2]
 }
 
