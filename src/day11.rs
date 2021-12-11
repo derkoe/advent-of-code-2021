@@ -17,24 +17,7 @@ fn part1(input: &Vec<Vec<u32>>) -> usize {
     let mut flashes = 0;
     let mut data = input.clone();
     for _gen in 1..101 {
-        data.iter_mut().for_each(|row| {
-            row.iter_mut().for_each(|cell| {
-                *cell += 1;
-            });
-        });
-        for row in 0..data.len() {
-            for col in 0..data[row].len() {
-                handle_flash(&mut data, row, col);
-            }
-        }
-        data.iter_mut().for_each(|row| {
-            row.iter_mut().for_each(|cell| {
-                if *cell > 9 {
-                    *cell = 0;
-                    flashes += 1;
-                }
-            });
-        });
+        flashes += handle_gen(&mut data);
     }
     flashes
 }
@@ -43,28 +26,34 @@ fn part1(input: &Vec<Vec<u32>>) -> usize {
 fn part2(input: &Vec<Vec<u32>>) -> usize {
     let mut data = input.clone();
     for gen in 1..1000 {
-        data.iter_mut().for_each(|row| {
-            row.iter_mut().for_each(|cell| {
-                *cell += 1;
-            });
-        });
-        for row in 0..data.len() {
-            for col in 0..data[row].len() {
-                handle_flash(&mut data, row, col);
-            }
-        }
-        data.iter_mut().for_each(|row| {
-            row.iter_mut().for_each(|cell| {
-                if *cell > 9 {
-                    *cell = 0;
-                }
-            });
-        });
-        if data.iter().all(|row| row.iter().all(|cell| *cell == data[0][0])) {
+        if handle_gen(&mut data) == 100 {
             return gen;
         }
     }
     0
+}
+
+fn handle_gen(data: &mut Vec<Vec<u32>>) -> usize {
+    let mut flashes = 0;
+    data.iter_mut().for_each(|row| {
+        row.iter_mut().for_each(|cell| {
+            *cell += 1;
+        });
+    });
+    for row in 0..data.len() {
+        for col in 0..data[row].len() {
+            handle_flash(data, row, col);
+        }
+    }
+    data.iter_mut().for_each(|row| {
+        row.iter_mut().for_each(|cell| {
+            if *cell > 9 {
+                *cell = 0;
+                flashes += 1;
+            }
+        });
+    });
+    flashes
 }
 
 fn handle_flash(data: &mut Vec<Vec<u32>>, row: usize, col: usize) {
