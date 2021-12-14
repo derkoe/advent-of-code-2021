@@ -70,7 +70,7 @@ fn part2(input: &Input) -> usize {
     for y in 0..=max_y {
         for x in 0..=max_x {
             if map.contains(&(x, y)) {
-               print!("#");
+                print!("#");
             } else {
                 print!(".");
             }
