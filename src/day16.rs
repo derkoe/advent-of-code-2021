@@ -81,9 +81,7 @@ fn parse_packet(binary_str: String) -> (Packet, usize) {
                 let mut i = 0;
                 total_length += 15;
                 while i < subpacket_length {
-                    let (subpacket, length) = parse_packet(
-                        binary_str[total_length..].to_string(),
-                    );
+                    let (subpacket, length) = parse_packet(binary_str[total_length..].to_string());
                     subpackets.push(subpacket);
                     total_length += length;
                     i += length;
