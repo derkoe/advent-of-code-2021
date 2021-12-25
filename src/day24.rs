@@ -145,7 +145,7 @@ fn part1(input: &Vec<Instruction>) -> u64 {
 
 #[aoc(day24, part2)]
 fn part2(input: &Vec<Instruction>) -> u64 {
-    for i in (11111111111111..99999999999999u64) {
+    for i in 11111111111111..99999999999999u64 {
         let x = format!("{}", i);
         if x.contains("0") {
             continue;
